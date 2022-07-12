@@ -29,12 +29,21 @@ function NewComment(props) {
 		}
 
 		props.onAddComment({
-			email: enteredEmail,
-			name: enteredName,
-			text: enteredComment
+			data: {
+				email: enteredEmail,
+				name: enteredName,
+				text: enteredComment
+			},
+			onSuccess: resetValue
 		});
 	}
 
+	function resetValue() {
+		emailInputRef.current.value = '';
+		nameInputRef.current.value = '';
+		commentInputRef.current.value = '';
+		setIsInvalid(false);
+	}
 	return (
 		<form className={classes.form} onSubmit={sendCommentHandler}>
 			<div className={classes.row}>
