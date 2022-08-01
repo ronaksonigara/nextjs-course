@@ -17,20 +17,20 @@ function FilteredEventsPage(props) {
 
 	const filterData = router.query.slug;
 	const fetcher = (url) => fetch(url).then((res) => res.json());
-	const { data, error, isValidating } = useSWR(
-		'https://nextjs-course-9904f-default-rtdb.asia-southeast1.firebasedatabase.app/events.json',
-		fetcher
-	);
+	const { data, error, isValidating } = useSWR('/api/events', fetcher);
 
 	useEffect(() => {
 		if (data) {
-			const events = [];
-			for (const key in data) {
-				events.push({
-					id: key,
-					...data[key]
-				});
-			}
+			const events = data.events.map((event) => ({
+				...event,
+				id: event.eventId
+			}));
+			// for (const key in data) {
+			// 	events.push({
+			// 		id: key,
+			// 		...data[key]
+			// 	});
+			// }
 			setLoadedEvents(events);
 		}
 	}, [data]);

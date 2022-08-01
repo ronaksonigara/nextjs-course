@@ -30,7 +30,7 @@ function Comments(props) {
 	function addCommentHandler(commentData) {
 		notificationCtx.showNotification({
 			title: 'Sending comment',
-			message: 'Your comment is currently being stoed into database',
+			message: 'Your comment is currently being stored into database',
 			status: 'pending'
 		});
 		// send data to API

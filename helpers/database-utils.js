@@ -1,8 +1,7 @@
 import { MongoClient } from 'mongodb';
 
 // Connection URL
-const url =
-	'mongodb+srv://ronak_nodejs_course:i4oeOmpzgRbJ0Ajq@cluster0.si9wk.mongodb.net/events?retryWrites=true&w=majority';
+const url = `mongodb+srv://${process.env.NEXT_PUBLIC_MONGO_USER}:${process.env.NEXT_PUBLIC_MONGO_PASSWORD}@${process.env.NEXT_PUBLIC_MONGO_CLUSTER}.${process.env.NEXT_PUBLIC_MONGO_CLUSTER_ID}.mongodb.net/events?retryWrites=true&w=majority`;
 
 export async function connectDatabase() {
 	const client = new MongoClient(url);
@@ -16,9 +15,9 @@ export async function insertDocument(client, collectionName, document) {
 	return result;
 }
 
-export async function getAllDocuments(client, collectionName, sort) {
+export async function getAllDocuments(client, collectionName, sort, query) {
 	const db = client.db();
 	const collection = db.collection(collectionName);
-	const result = await collection.find().sort(sort).toArray();
+	const result = await collection.find(query).sort(sort).toArray();
 	return result;
 }

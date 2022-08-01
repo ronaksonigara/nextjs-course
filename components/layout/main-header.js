@@ -11,6 +11,9 @@ function MainHeader() {
 			<nav className={classes.navigation}>
 				<ul>
 					<li>
+						<Link href='/events/add'>Add Event</Link>
+					</li>
+					<li>
 						<Link href='/events'>Browse All Events</Link>
 					</li>
 				</ul>

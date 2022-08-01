@@ -1,43 +1,39 @@
+export const BASE_URL = process.env.NEXT_PUBLIC_DOMAIN || '';
+
 export async function getAllEvents() {
-	const response = await fetch(
-		'https://nextjs-course-9904f-default-rtdb.asia-southeast1.firebasedatabase.app/events.json'
-	);
+	const response = await fetch(`${BASE_URL}/api/events`);
+
 	let data = await response.json();
-	const events = [];
-	for (const key in data) {
-		events.push({
-			id: key,
-			...data[key]
-		});
-	}
+
+	const events = data.events.map((event) => ({
+		id: event.eventId,
+		...event
+	}));
 	return events;
 }
 
 export async function getFeaturedEvents() {
-	const response = await fetch(
-		'https://nextjs-course-9904f-default-rtdb.asia-southeast1.firebasedatabase.app/events.json?orderBy="isFeatured"&equalTo=true'
-	);
+	const response = await fetch(`${BASE_URL}/api/events?isFeatured=true`);
+
 	let data = await response.json();
-	const events = [];
-	for (const key in data) {
-		events.push({
-			id: key,
-			...data[key]
-		});
-	}
+
+	const events = data.events.map((event) => ({
+		id: event.eventId,
+		...event
+	}));
+
 	return events;
 }
 
 export async function getEventDetail(eventId) {
-	const response = await fetch(
-		`https://nextjs-course-9904f-default-rtdb.asia-southeast1.firebasedatabase.app/events/${eventId}.json`
-	);
+	const response = await fetch(`${BASE_URL}/api/events/${eventId}`);
 	let data = await response.json();
-	if (!data) {
+	console.log(data);
+	if (!data.event) {
 		return null;
 	}
 	return {
-		...data,
+		...data.event,
 		id: eventId
 	};
 }
