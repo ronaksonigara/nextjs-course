@@ -1,7 +1,7 @@
-export const BASE_URL = process.env.NEXT_PUBLIC_DOMAIN || '';
+// export const BASE_URL = process.env.NEXT_PUBLIC_DOMAIN || '';
 
 export async function getAllEvents() {
-	const response = await fetch(`${BASE_URL}/api/events`);
+	const response = await fetch(`/api/events`);
 
 	let data = await response.json();
 
@@ -13,7 +13,7 @@ export async function getAllEvents() {
 }
 
 export async function getFeaturedEvents() {
-	const response = await fetch(`${BASE_URL}/api/events?isFeatured=true`);
+	const response = await fetch(`/api/events?isFeatured=true`);
 
 	let data = await response.json();
 
@@ -26,7 +26,7 @@ export async function getFeaturedEvents() {
 }
 
 export async function getEventDetail(eventId) {
-	const response = await fetch(`${BASE_URL}/api/events/${eventId}`);
+	const response = await fetch(`/api/events/${eventId}`);
 	let data = await response.json();
 	console.log(data);
 	if (!data.event) {
